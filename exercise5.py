@@ -34,7 +34,7 @@ class VigenereCipher:
         str
             The shifted letter.
         """
-            if forward:
+        if forward:
             shifted_position = (ord(letter) - self.offset + shift) % 26
         else:
             shifted_position = (ord(letter) - self.offset - shift) % 26
