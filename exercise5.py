@@ -1,3 +1,4 @@
+#Ashkan Ramjerdi
 class VigenereCipher:
     """
        VigenereCipher class (TO BE COMPLETED).
@@ -34,14 +35,15 @@ class VigenereCipher:
         str
             The shifted letter.
         """
-        if forward:
-            shifted_position = (ord(letter) - self.offset + shift) % 26
-        else:
-            shifted_position = (ord(letter) - self.offset - shift) % 26
+        shifted_letter = ''
 
-        shifted_letter = chr(shifted_position + self.offset)
+        if forward:
+            position = (ord(letter) - self.offset + shift) % 26
+        else:
+            position = (ord(letter) - self.offset - shift) % 26
+
+        shifted_letter = chr(position + self.offset)
         return shifted_letter
-    
 
     def __generate_shift_list(self, plaintext_length: int):
         """
@@ -71,7 +73,7 @@ class VigenereCipher:
             shift = ord(keyword_letter) - self.offset
             shift_list.append(shift)
 
-         return shift_list
+        return shift_list
 
     def encrypt(self, plaintext: str):
         """
@@ -94,16 +96,19 @@ class VigenereCipher:
         str
             The ciphertext string.
         """
+        ciphertext = ''
+
         plaintext = plaintext.upper()
-        plaintext = ''.join(letter for letter in plaintext if letter.isalpha())
+        plaintext = ''.join(char for char in plaintext if char.isalpha())
 
         shift_list = self.__generate_shift_list(len(plaintext))
-        ciphertext = ''
 
         for i in range(len(plaintext)):
             ciphertext += self.__shift_letter(plaintext[i], shift_list[i], True)
 
         return ciphertext
+
+    def decrypt(self, ciphertext: str):
         """
         TO BE COMPLETED
 
@@ -127,11 +132,12 @@ class VigenereCipher:
         str
             The plaintext string.
         """
+        plaintext = ''
+
         ciphertext = ciphertext.upper()
-        ciphertext = ''.join(letter for letter in ciphertext if letter.isalpha())
+        ciphertext = ''.join(char for char in ciphertext if char.isalpha())
 
         shift_list = self.__generate_shift_list(len(ciphertext))
-        plaintext = ''
 
         for i in range(len(ciphertext)):
             plaintext += self.__shift_letter(ciphertext[i], shift_list[i], False)
@@ -148,3 +154,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
